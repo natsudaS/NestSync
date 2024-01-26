@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NestSync</string>
+    <string name="welcome_message">Willkommen!</string>
+    <string name="loginbtn">Anmelden</string>
+    <string name="registerbtn">Registrieren</string>
+    <string name="login_prompt">Melde Dich an!</string>
+    <string name="email_hint">E-mail...</string>
+    <string name="pwd_hint">Passwort...</string>
+</resources>
