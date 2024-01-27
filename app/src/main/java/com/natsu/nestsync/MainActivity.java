@@ -30,8 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
         goRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
+            //public void onClick(View view) {Toast.makeText(view.getContext(), "OK gedrückt", Toast.LENGTH_SHORT).show();}
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "OK gedrückt", Toast.LENGTH_SHORT).show();
+                Intent gotoRegister = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(gotoRegister);
             }
         });
     }

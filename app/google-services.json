@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "305942931817",
+    "firebase_url": "https://nestnav-a2c26-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "nestnav-a2c26",
+    "storage_bucket": "nestnav-a2c26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305942931817:android:8d4c159458b68fec1eb5f8",
+        "android_client_info": {
+          "package_name": "com.natsu.nestsync"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305942931817-d91k7g7h629fe5lp5a347k4kl7v1098e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZa7ozFkul0SHf73sNL9dEyFlNpRy8gKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305942931817-d91k7g7h629fe5lp5a347k4kl7v1098e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

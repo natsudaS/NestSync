@@ -6,4 +6,7 @@
     <string name="login_prompt">Log in!</string>
     <string name="email_hint">Enter email...</string>
     <string name="pwd_hint">Enter password...</string>
+    <string name="register_prompt">Register now!</string>
+    <string name="name_hint">Enter your name...</string>
+    <string name="pwd_hint2">Confirm password...</string>
 </resources>
