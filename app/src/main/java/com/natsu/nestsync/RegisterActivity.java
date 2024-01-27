@@ -68,10 +68,10 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (pswd != pswdConf){
+                /*if (pswd != pswdConf){
                     mPswdConf.setError("Passwords don't match");
                     return;
-                }
+                }*/
 
                 //register user in firebase
                 mAuth.createUserWithEmailAndPassword(email,pswd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
