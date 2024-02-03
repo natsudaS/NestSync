@@ -17,9 +17,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
-    //declare vars (Quelle: https://www.youtube.com/watch?v=TwHmrZxiPA8&list=PLlGT4GXi8_8dDK5Y3KCxuKAPpil9V49rN&index=2)
-    EditText mName, mMail, mPswd, mPswdConf;
+    //declare vars (Quelle für Register, Login, Logout: https://www.youtube.com/watch?v=TwHmrZxiPA8&list=PLlGT4GXi8_8dDK5Y3KCxuKAPpil9V49rN&index=2)
     Button mRegBtn;
+    EditText mName, mMail, mPswd, mPswdConf;
     FirebaseAuth mAuth;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        // event handling
         mRegBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,14 +65,14 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (TextUtils.isEmpty(pswdConf)){
-                    mPswdConf.setError("Password is required.");
+                    mPswdConf.setError("Password confirmation is required.");
                     return;
                 }
 
-                /*if (pswd != pswdConf){
-                    mPswdConf.setError("Passwords don't match");
+                if (!pswd.equals(pswdConf)){
+                    mPswdConf.setError("Passwords must match");
                     return;
-                }*/
+                }
 
                 //register user in firebase
                 mAuth.createUserWithEmailAndPassword(email,pswd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
