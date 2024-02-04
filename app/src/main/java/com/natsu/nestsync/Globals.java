@@ -6,6 +6,7 @@ public class Globals {
 
     private Globals() {
         //hier Daten aus de Datenbank einlesen bzw Testdaten hart einkodieren
+        User user = new User("uID", "name");
     }
 
     public static Globals getInstance() {
