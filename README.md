@@ -1,5 +1,6 @@
 # NestSync
 WiSe 23/24 - AppEntwicklung
+Ria Sommerfeld
 
 ## Introduction
 NestSync soll eine AndroidApp werden, um Einkaufslisten zu erstellen und diese mit anderen Nutzer der App zu teilen.
