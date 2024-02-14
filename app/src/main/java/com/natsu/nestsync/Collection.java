@@ -1,5 +1,7 @@
 package com.natsu.nestsync;
 
+import com.natsu.nestsync.models.NestList;
+
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -12,7 +14,7 @@ public class Collection {
     public Collection(String name) {
         uID = UUID.randomUUID().toString();
         collectionName = name;
-        collectionLists = new HashMap<String,NestList>();
+        collectionLists = new HashMap<String, NestList>();
     }
 
     public String getuID() {

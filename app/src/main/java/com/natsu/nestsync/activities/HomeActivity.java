@@ -1,4 +1,4 @@
-package com.natsu.nestsync;
+package com.natsu.nestsync.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.natsu.nestsync.R;
+import com.natsu.nestsync.activities.MainActivity;
 
 public class HomeActivity extends AppCompatActivity {
     // declare vars
@@ -36,12 +38,6 @@ public class HomeActivity extends AppCompatActivity {
         // rootDatabaseref = FirebaseDatabase.getInstance().getReference().child("MyData"); for making it a child of mydata
         // referencing approach rather then embedding approach
         oAuth = FirebaseAuth.getInstance();
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            name = user.getDisplayName();
-            String email = user.getEmail();
-        }
-
 
         greeting.setText(name);
         // event handling
@@ -57,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String data = testData.getText().toString();
-                rootDatabaseref.setValue(data);
+                rootDatabaseref.child("testTexts").setValue(data);
             }
         });
     }

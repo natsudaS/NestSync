@@ -68,7 +68,7 @@
         android:layout_marginBottom="118dp"
         android:ems="10"
         android:inputType="text"
-        android:text="enter data"
+        android:hint="enter data"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

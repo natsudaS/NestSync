@@ -1,4 +1,4 @@
-package com.natsu.nestsync;
+package com.natsu.nestsync.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,17 +15,25 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.natsu.nestsync.Globals;
+import com.natsu.nestsync.R;
+import com.natsu.nestsync.models.User;
 
 public class RegisterActivity extends AppCompatActivity {
     //declare vars (Quelle für Register, Login, Logout: https://www.youtube.com/watch?v=TwHmrZxiPA8&list=PLlGT4GXi8_8dDK5Y3KCxuKAPpil9V49rN&index=2)
     Button mRegBtn;
     EditText mName, mMail, mPswd, mPswdConf;
     FirebaseAuth mAuth;
+    DatabaseReference dataRef;
+    Globals g;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        g = Globals.getInstance();
         //find elements
         mName = findViewById(R.id.editRegName);
         mMail = findViewById(R.id.editRegMail);
@@ -34,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         mRegBtn = findViewById(R.id.registerBtn);
 
         mAuth = FirebaseAuth.getInstance();
+        dataRef = FirebaseDatabase.getInstance().getReference().child("users");
 
         // event handling
         mRegBtn.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +89,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "User created.", Toast.LENGTH_SHORT).show();
+                            User user = new User(name,email);
+                            dataRef.setValue(user);
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         } else {
                             Toast.makeText(RegisterActivity.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

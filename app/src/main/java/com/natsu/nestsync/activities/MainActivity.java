@@ -1,12 +1,12 @@
-package com.natsu.nestsync;
+package com.natsu.nestsync.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.natsu.nestsync.R;
 
 public class MainActivity extends AppCompatActivity {
     //declare vars
@@ -23,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
         //event handling
         goLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            //public void onClick(View view) {goLoginButton.setText("Welt");}
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent gotoLogin= new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(gotoLogin);
             }
@@ -32,8 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         goRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            //public void onClick(View view) {Toast.makeText(view.getContext(), "OK gedrückt", Toast.LENGTH_SHORT).show();}
-            public void onClick(View view) {
+            public void onClick(View v) {
                 Intent gotoRegister = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(gotoRegister);
             }

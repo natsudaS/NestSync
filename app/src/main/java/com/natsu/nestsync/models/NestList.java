@@ -1,4 +1,6 @@
-package com.natsu.nestsync;
+package com.natsu.nestsync.models;
+
+import com.natsu.nestsync.models.Item;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -11,7 +13,7 @@ public class NestList {
     public NestList(String name) {
         uID = UUID.randomUUID().toString();
         nestListName = name;
-        items = new HashMap<String,Item>();
+        items = new HashMap<String, Item>();
     }
 
     public String getuID() {

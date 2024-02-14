@@ -1,4 +1,4 @@
-package com.natsu.nestsync;
+package com.natsu.nestsync.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.natsu.nestsync.R;
 
 public class LoginActivity extends AppCompatActivity {
     //declare vars
@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 if (pswd.length() < 8) {
-                    nPswd.setError("Password is required.");
+                    nPswd.setError("Password must be 8 characters or longer.");
                     return;
                 }
 
@@ -71,6 +71,13 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        linkToReg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
     }
