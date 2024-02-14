@@ -1,5 +1,6 @@
 # NestSync
 WiSe 23/24 - AppEntwicklung
+
 Ria Sommerfeld
 
 ## Introduction
