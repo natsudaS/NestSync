@@ -11,4 +11,5 @@
     <string name="pwd_hint2">Confirm password...</string>
     <string name="linkToReg">Create an Account!</string>
     <string name="logoutbtn">Logout</string>
+    <string name="linkToLog">Log in!</string>
 </resources>

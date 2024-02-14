@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     //declare vars (Quelle für Register, Login, Logout: https://www.youtube.com/watch?v=TwHmrZxiPA8&list=PLlGT4GXi8_8dDK5Y3KCxuKAPpil9V49rN&index=2)
     Button mRegBtn;
     EditText mName, mMail, mPswd, mPswdConf;
+    TextView linkToLog;
     FirebaseAuth mAuth;
     DatabaseReference dataRef;
     Globals g;
@@ -40,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         mPswd = findViewById(R.id.editRegPassword);
         mPswdConf = findViewById(R.id.editRegPassword2);
         mRegBtn = findViewById(R.id.registerBtn);
+        linkToLog = findViewById(R.id.linkToLog);
 
         mAuth = FirebaseAuth.getInstance();
         dataRef = FirebaseDatabase.getInstance().getReference().child("users");
@@ -97,6 +100,13 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 });
+            }
+        });
+
+        linkToLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
     }

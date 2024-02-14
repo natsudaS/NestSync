@@ -7,4 +7,6 @@
     <string name="login_prompt">Melde Dich an!</string>
     <string name="email_hint">E-mail...</string>
     <string name="pwd_hint">Passwort...</string>
+    <string name="logoutbtn">Abmelden</string>
+    <string name="linkToLog">Melde Dich an!</string>
 </resources>
