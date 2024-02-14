@@ -7,6 +7,10 @@
     <string name="login_prompt">Melde Dich an!</string>
     <string name="email_hint">E-mail...</string>
     <string name="pwd_hint">Passwort...</string>
+    <string name="register_prompt">Registriere Dich!</string>
+    <string name="name_hint">Nutzername...</string>
+    <string name="pwd_hint2">Passwort bestätigen...</string>
+    <string name="linkToReg">Erstelle einen Account!</string>
     <string name="logoutbtn">Abmelden</string>
-    <string name="linkToLog">Melde Dich an!</string>
+
 </resources>

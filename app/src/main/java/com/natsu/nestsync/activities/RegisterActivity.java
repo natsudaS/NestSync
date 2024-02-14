@@ -72,7 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (pswd.length() < 8){
-                    mPswd.setError("Password is required.");
+                    mPswd.setError("Password must be 8 characters or longer..");
                     return;
                 }
 
