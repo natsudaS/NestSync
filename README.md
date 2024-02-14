@@ -14,4 +14,5 @@ NestSync soll eine AndroidApp werden, um Einkaufslisten zu erstellen und diese m
 ## For Development & Demo
 
 ```
+gh repo clone natsudaS/NestSync
 ```
