@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">NestSync</string>
     <string name="welcome_message">Welcome!</string>
-    <string name="loginbtn">Login</string>
-    <string name="registerbtn">Register</string>
+    <string name="loginBtn">Login</string>
+    <string name="registerBtn">Register</string>
     <string name="login_prompt">Log in!</string>
     <string name="email_hint">Enter email...</string>
     <string name="pwd_hint">Enter password...</string>

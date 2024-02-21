@@ -16,9 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.natsu.nestsync.Globals;
 import com.natsu.nestsync.R;
 import com.natsu.nestsync.models.User;
 
@@ -29,13 +29,11 @@ public class RegisterActivity extends AppCompatActivity {
     TextView linkToLog;
     FirebaseAuth mAuth;
     DatabaseReference dataRef;
-    Globals g;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        g = Globals.getInstance();
         //find elements
         mName = findViewById(R.id.editRegName);
         mMail = findViewById(R.id.editRegMail);
@@ -72,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (pswd.length() < 8){
-                    mPswd.setError("Password must be 8 characters or longer..");
+                    mPswd.setError("Password must be 8 characters or longer.");
                     return;
                 }
 
@@ -92,8 +90,9 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "User created.", Toast.LENGTH_SHORT).show();
-                            User user = new User(name,email);
-                            dataRef.setValue(user);
+                            FirebaseUser fUser = mAuth.getCurrentUser();
+                            User user = new User(name);
+                            dataRef.child(fUser.getUid()).setValue(user);
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         } else {
                             Toast.makeText(RegisterActivity.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

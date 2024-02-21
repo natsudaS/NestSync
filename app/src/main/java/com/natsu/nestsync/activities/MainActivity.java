@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.natsu.nestsync.R;
 
 public class MainActivity extends AppCompatActivity {
