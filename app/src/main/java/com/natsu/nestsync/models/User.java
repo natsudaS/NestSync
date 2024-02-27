@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -16,24 +17,28 @@ public class User {
     //public String uuid;
     private String name;
     private HashMap nestLists;
-    private String sampleNestList;
+    private NestList sampleNestList;
 
-    //FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    private FirebaseUser fUser = fAuth.getCurrentUser();
+    private DatabaseReference userDataRef = FirebaseDatabase.getInstance().getReference().child("users");
 
     public User () {
         //Default required for DataSnapshot.getValue(User.class)
     }
     public User (String name) {
-        //this.uuid = fUser.getUid();
         this.name = name;
         nestLists = new HashMap<String,Boolean>();
-        sampleNestList = new NestList(this.name,"Sample").getNestListTitle();
-        nestLists.put(sampleNestList,true);
+        sampleNestList = new NestList(fUser.getUid(),"Sample");
+        sampleNestList.writeNewList();
+        nestLists.put(sampleNestList.getNestListUUID(),true);
     }
 
     public void writeNewUser(){
         Log.i(TAG, "writeNewUser() called");
+        userDataRef.child(fUser.getUid()).setValue(this);
     }
+
     //public String getUserID(){ return uuid; }
     public String getName() {
         return name;
