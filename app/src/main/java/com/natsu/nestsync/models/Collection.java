@@ -1,4 +1,4 @@
-package com.natsu.nestsync;
+package com.natsu.nestsync.models;
 
 import com.natsu.nestsync.models.NestList;
 
