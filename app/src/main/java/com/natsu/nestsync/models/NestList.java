@@ -16,58 +16,46 @@ import java.util.List;
 import java.util.UUID;
 
 public class NestList {
+    //class vars needed for nestList
     private String nestListUUID;
     private String nestListTitle;
     private Item item;
     private HashMap members;
-    private HashMap items;
+    private List items;
 
+    //database connection
     private DatabaseReference nestListDataRef = FirebaseDatabase.getInstance().getReference().child("nestLists");
+
+    public NestList(){
+        //needed for firebase
+    }
 
     public NestList(String userID, String title) {
         nestListTitle = title;
         members = new HashMap<String,Boolean>();
         members.put(userID,true);
-        //item = new Item("sample");
-        //items = new HashMap<String, Boolean>();
-        //items.put(item.getUID(), true);
+        item = new Item("sample");
+        items = new ArrayList<Item>();
+        items.add(item);
     }
 
     public void writeNewList(){
         Log.i(TAG, "writeNewList() called");
-        nestListDataRef.child(this.createNestListUUID()).setValue(this);
-    }
-
-    public String createNestListUUID() {
         nestListUUID = nestListTitle + UUID.randomUUID().toString();
-        return nestListUUID; }
-
-    public String getNestListUUID() {
-        return nestListUUID;
-    }
-    public String getNestListTitle() {
-        return nestListTitle;
+        nestListDataRef.child(nestListUUID).setValue(this);
     }
 
-    public void setNestListName(String title) {
-        nestListTitle = title;
-    }
+    public String getNestListUUID() {return nestListUUID;}
 
-    public List getMemberNames() {
+    public String getNestListTitle(){return nestListTitle;}
+
+    public List getItems(){return items;}
+
+    /*public List getMemberNames() {
         List memberNames = new ArrayList<>();
         for (Object i : members.keySet()) {
             memberNames.add(i);
         }
         return memberNames;
-    }
-
-    public void addMemberbyID(String userID){ members.put(userID, true); }
-
-    public void removeMemberbyID(String userID){ members.remove(userID); }
-
-    //public HashMap getItems() {return items;}
-
-    //public void addItem(Item item) {items.put(item.getuID(), item);}
-
-    //public void removeItem (Item item) {items.remove(item.getuID());}
+    }*/
 }

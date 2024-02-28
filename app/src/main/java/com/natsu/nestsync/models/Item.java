@@ -1,27 +1,24 @@
 package com.natsu.nestsync.models;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import android.util.Log;
+
 import java.util.HashMap;
 import java.util.UUID;
 
 public class Item {
-    final private String uID;
     private String itemName;
+    private Boolean itemStatus;
 
     public Item(String name) {
-        uID = UUID.randomUUID().toString();
         itemName = name;
+        itemStatus = false;
     }
 
-    public String getuID() {
-        return uID;
-    }
+    public String getItemName() {return itemName;}
 
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String name) {
-        itemName = name;
-    }
+    public Boolean getItemStatus() {return itemStatus;}
 }
+
 

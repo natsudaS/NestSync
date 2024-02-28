@@ -14,40 +14,33 @@ import java.util.UUID;
 
 //maybe obsolete due to firebase stuff
 public class User {
-    //public String uuid;
+    //class vars needed for user
     private String name;
     private HashMap nestLists;
     private NestList sampleNestList;
 
+    //database connection
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
     private FirebaseUser fUser = fAuth.getCurrentUser();
     private DatabaseReference userDataRef = FirebaseDatabase.getInstance().getReference().child("users");
 
-    public User () {
-        //Default required for DataSnapshot.getValue(User.class)
-    }
-    public User (String name) {
-        this.name = name;
-        nestLists = new HashMap<String,Boolean>();
-        sampleNestList = new NestList(fUser.getUid(),"Sample");
-        sampleNestList.writeNewList();
-        nestLists.put(sampleNestList.getNestListUUID(),true);
+    public User() {
+        //needed for firebase
     }
 
-    public void writeNewUser(){
+    public User(String name) {
+        this.name = name;
+        nestLists = new HashMap<String, Boolean>();
+        sampleNestList = new NestList(fUser.getUid(), "Sample");
+        sampleNestList.writeNewList();
+        nestLists.put(sampleNestList.getNestListUUID(), true);
+    }
+
+    public void writeNewUser() {
         Log.i(TAG, "writeNewUser() called");
         userDataRef.child(fUser.getUid()).setValue(this);
     }
 
-    //public String getUserID(){ return uuid; }
-    public String getName() {
-        return name;
-    }
-
-    //public void setName(String name) {this.name = name;}
-
-
-    public HashMap getNestLists() {
-        return nestLists;
-    }
+    public String getUsername(){return name;}
+    public HashMap getNestLists(){return nestLists;}
 }
