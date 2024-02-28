@@ -1,14 +1,15 @@
 <resources>
     <string name="app_name">NestSync</string>
     <string name="welcome_message">Welcome!</string>
-    <string name="loginbtn">Login</string>
-    <string name="registerbtn">Register</string>
+    <string name="loginBtn">Login</string>
+    <string name="registerBtn">Register</string>
     <string name="login_prompt">Log in!</string>
     <string name="email_hint">Enter email...</string>
     <string name="pwd_hint">Enter password...</string>
     <string name="register_prompt">Register now!</string>
-    <string name="name_hint">Enter your name...</string>
+    <string name="name_hint">Enter a nickname...</string>
     <string name="pwd_hint2">Confirm password...</string>
     <string name="linkToReg">Create an Account!</string>
     <string name="logoutbtn">Logout</string>
+
 </resources>

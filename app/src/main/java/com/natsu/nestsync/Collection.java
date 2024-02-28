@@ -17,28 +17,18 @@ public class Collection {
         collectionLists = new HashMap<String, NestList>();
     }
 
-    public String getuID() {
+    public String getUID() {
         return uID;
     }
 
-    public String getCollectionName() {
-        return collectionName;
-    }
+    //public String getCollectionName() {return collectionName;}
 
-    public void setCollectionName(String name) {
-        collectionName = name;
-    }
+    //public void setCollectionName(String name) {collectionName = name;}
 
-    public HashMap getCollectionLists() {
-        return collectionLists;
-    }
+    //public HashMap getCollectionLists() {return collectionLists;}
 
-    public void addNestList (NestList nestList) {
-        collectionLists.put(nestList.getuID(), nestList);
-    }
+    //public void addNestList (NestList nestList) {collectionLists.put(nestList.getuID(), nestList);}
 
-    public void removeNestList (NestList nestList) {
-        collectionLists.remove(nestList.getuID());
-    }
+    //public void removeNestList (NestList nestList) {collectionLists.remove(nestList.getuID());}
 }
 

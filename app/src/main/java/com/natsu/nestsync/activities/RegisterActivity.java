@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,9 +16,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.natsu.nestsync.Globals;
 import com.natsu.nestsync.R;
 import com.natsu.nestsync.models.User;
 
@@ -25,21 +26,21 @@ public class RegisterActivity extends AppCompatActivity {
     //declare vars (Quelle für Register, Login, Logout: https://www.youtube.com/watch?v=TwHmrZxiPA8&list=PLlGT4GXi8_8dDK5Y3KCxuKAPpil9V49rN&index=2)
     Button mRegBtn;
     EditText mName, mMail, mPswd, mPswdConf;
+    TextView linkToLog;
     FirebaseAuth mAuth;
     DatabaseReference dataRef;
-    Globals g;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        g = Globals.getInstance();
         //find elements
         mName = findViewById(R.id.editRegName);
         mMail = findViewById(R.id.editRegMail);
         mPswd = findViewById(R.id.editRegPassword);
         mPswdConf = findViewById(R.id.editRegPassword2);
         mRegBtn = findViewById(R.id.registerBtn);
+        linkToLog = findViewById(R.id.linkToLog);
 
         mAuth = FirebaseAuth.getInstance();
         dataRef = FirebaseDatabase.getInstance().getReference().child("users");
@@ -69,7 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if (pswd.length() < 8){
-                    mPswd.setError("Password is required.");
+                    mPswd.setError("Password must be 8 characters or longer.");
                     return;
                 }
 
@@ -89,14 +90,21 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(RegisterActivity.this, "User created.", Toast.LENGTH_SHORT).show();
-                            User user = new User(name,email);
-                            dataRef.setValue(user);
+                            User user = new User(name);
+                            user.writeNewUser();
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         } else {
                             Toast.makeText(RegisterActivity.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+            }
+        });
+
+        linkToLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
     }

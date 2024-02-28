@@ -13,7 +13,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="143dp"
         android:layout_marginBottom="199dp"
-        android:text="@string/registerbtn"
+        android:text="@string/registerBtn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,10 +38,11 @@
     <EditText
         android:id="@+id/editRegMail"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="101dp"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="100dp"
+        android:autofillHints="emailAddress"
         android:ems="10"
         android:hint="@string/email_hint"
         android:inputType="textEmailAddress"
@@ -52,13 +53,15 @@
     <EditText
         android:id="@+id/editRegName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="41dp"
         android:layout_marginEnd="101dp"
+        android:autofillHints="username"
         android:ems="10"
         android:hint="@string/name_hint"
         android:inputType="text"
+        android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerPrompt" />
@@ -66,10 +69,11 @@
     <EditText
         android:id="@+id/editRegPassword2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="101dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="100dp"
+        android:autofillHints="password"
         android:ems="10"
         android:hint="@string/pwd_hint2"
         android:inputType="textPassword"
@@ -80,15 +84,29 @@
     <EditText
         android:id="@+id/editRegPassword"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginStart="101dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="100dp"
+        android:autofillHints="password"
         android:ems="10"
         android:hint="@string/pwd_hint"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editRegMail" />
+
+    <TextView
+        android:id="@+id/linkToLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="146dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="146dp"
+        android:text="@string/login_prompt"
+        android:textColor="#3F51B5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
