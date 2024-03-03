@@ -2,27 +2,43 @@ package com.natsu.nestsync.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.natsu.nestsync.HomeAdapter;
 import com.natsu.nestsync.R;
 import com.natsu.nestsync.activities.MainActivity;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity {
     // declare vars
+    ArrayList<String> userNestLists;
     Button logoutBtn,testButton;
     EditText testData;
-    FirebaseAuth oAuth;
-    FirebaseUser user;
-    DatabaseReference rootDatabaseref;
+    FirebaseAuth fAuth;
+    FirebaseUser fUser;
+    DatabaseReference mDatabaseref;
+    HomeAdapter homeAdapt;
+    RecyclerView recView;
     String name;
     TextView greeting;
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +50,45 @@ public class HomeActivity extends AppCompatActivity {
         testButton = findViewById(R.id.testButton);
         testData = findViewById(R.id.testData);
         greeting = findViewById(R.id.textView2);
-        rootDatabaseref = FirebaseDatabase.getInstance().getReference();
-        // rootDatabaseref = FirebaseDatabase.getInstance().getReference().child("MyData"); for making it a child of mydata
-        // referencing approach rather then embedding approach
-        oAuth = FirebaseAuth.getInstance();
+        recView = findViewById(R.id.datalist);
+        mDatabaseref = FirebaseDatabase.getInstance().getReference();
+        fAuth = FirebaseAuth.getInstance();
+        fUser = fAuth.getCurrentUser();
 
-        greeting.setText(name);
+        recView.setHasFixedSize(true);
+        recView.setLayoutManager(new LinearLayoutManager(this));
+        userNestLists = new ArrayList<>();
+        homeAdapt = new HomeAdapter(this,userNestLists);
+        recView.setAdapter(homeAdapt);
+
+        mDatabaseref.child("users").child(fUser.getUid()).child("nestLists").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    String name = snapshot1.getKey();
+                    userNestLists.add(name);
+                }
+                homeAdapt.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        mDatabaseref.child("users").child(fUser.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    greeting.setText("Hallo, " + task.getResult().getValue());
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                }
+            }
+        });
+
         // event handling
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +102,7 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String data = testData.getText().toString();
-                rootDatabaseref.child("testTexts").setValue(data);
+                mDatabaseref.child("testTexts").setValue(data);
             }
         });
     }

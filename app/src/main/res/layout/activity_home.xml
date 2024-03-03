@@ -1,56 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent">
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="177dp"
-        android:layout_marginEnd="178dp"
-        android:layout_marginBottom="45dp"
-        android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_add" />
-
     <Button
         android:id="@+id/logoutButton"
-        android:layout_width="104dp"
+        android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/logoutbtn"
-        tools:layout_editor_absoluteY="20dp" />
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/testData"
-        android:layout_width="212dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="95dp"
-        android:layout_marginEnd="104dp"
-        android:layout_marginBottom="118dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="enter data" />
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="409dp"
+        android:layout_height="669dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="61dp">
 
-    <Button
-        android:id="@+id/testButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="159dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="164dp"
-        android:text="Enter" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="sans-serif"
+            android:text="Hallo, Nutzer!"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="34sp" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="166dp"
-        android:layout_marginEnd="187dp"
-        android:layout_marginBottom="29dp"
-        android:text="Greeting" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/datalist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_menu_add" />
+
+        <EditText
+            android:id="@+id/testData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="80dp"
+            android:ems="10"
+            android:hint="enter data"
+            android:inputType="text"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/testButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="Enter" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
