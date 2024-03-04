@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,8 +35,8 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
     // declare vars
     ArrayList<String> userNestLists;
-    Button logoutBtn,addListBtn;
-    EditText testData;
+    Button menuBtn,logoutBtn;
+    FloatingActionButton addListBtn;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
     DatabaseReference mDatabaseref;
@@ -48,9 +49,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         // find elements
+        menuBtn = findViewById(R.id.menuButton);
         logoutBtn = findViewById(R.id.logoutButton);
         addListBtn = findViewById(R.id.addListButton);
-        testData = findViewById(R.id.testData);
         greeting = findViewById(R.id.textView2);
         recView = findViewById(R.id.datalist);
 
@@ -117,6 +118,21 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        //handling list adding btn
+        addListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), ListActivity.class));
+            }
+        });
+
+        //handling menu btn
+        menuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+            }
+        });
     }
 
     //logout user
