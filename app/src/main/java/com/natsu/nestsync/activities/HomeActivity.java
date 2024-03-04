@@ -1,5 +1,7 @@
 package com.natsu.nestsync.activities;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,7 +34,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity {
     // declare vars
     ArrayList<String> userNestLists;
-    Button logoutBtn,testButton;
+    Button logoutBtn,addListBtn;
     EditText testData;
     FirebaseAuth fAuth;
     FirebaseUser fUser;
@@ -47,10 +49,11 @@ public class HomeActivity extends AppCompatActivity {
 
         // find elements
         logoutBtn = findViewById(R.id.logoutButton);
-        testButton = findViewById(R.id.testButton);
+        addListBtn = findViewById(R.id.addListButton);
         testData = findViewById(R.id.testData);
         greeting = findViewById(R.id.textView2);
         recView = findViewById(R.id.datalist);
+
         mDatabaseref = FirebaseDatabase.getInstance().getReference();
         fAuth = FirebaseAuth.getInstance();
         fUser = fAuth.getCurrentUser();
@@ -61,21 +64,7 @@ public class HomeActivity extends AppCompatActivity {
         homeAdapt = new HomeAdapter(this,userNestLists);
         recView.setAdapter(homeAdapt);
 
-        mDatabaseref.child("users").child(fUser.getUid()).child("nestLists").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot snapshot1: snapshot.getChildren()){
-                    String name = snapshot1.getKey();
-                    userNestLists.add(name);
-                }
-                homeAdapt.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        //personalize the greeting
         mDatabaseref.child("users").child(fUser.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
@@ -89,7 +78,38 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        // event handling
+        //query to display nestLists of current user
+        mDatabaseref.child("users").child(fUser.getUid()).child("nestLists").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                userNestLists.clear();
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    String listID = snapshot1.getKey();
+
+                    mDatabaseref.child("nestLists").child(listID).child("nestListTitle").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String nestListTitle = dataSnapshot.getValue(String.class);
+                            userNestLists.add(nestListTitle); // Add the name of the nestList instead of its UUID
+                            homeAdapt.notifyDataSetChanged(); // Notify RecyclerView adapter of the data change
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            // Handle errors if any
+                        }
+                    });
+                }
+                homeAdapt.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        //handling logout btn
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,16 +117,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        testButton.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                String data = testData.getText().toString();
-                mDatabaseref.child("testTexts").setValue(data);
-            }
-        });
     }
 
+    //logout user
     public void logout (View v) {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
