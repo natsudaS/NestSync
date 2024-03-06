@@ -2,6 +2,7 @@ package com.natsu.nestsync.activities;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,12 +29,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.natsu.nestsync.HomeAdapter;
+import com.natsu.nestsync.OnRecyclerItemClickListener;
 import com.natsu.nestsync.R;
 import com.natsu.nestsync.activities.MainActivity;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements OnRecyclerItemClickListener {
     // declare vars
     ArrayList<String> userNestLists;
     Button menuBtn,logoutBtn;
@@ -62,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
         recView.setHasFixedSize(true);
         recView.setLayoutManager(new LinearLayoutManager(this));
         userNestLists = new ArrayList<>();
-        homeAdapt = new HomeAdapter(this,userNestLists);
+        homeAdapt = new HomeAdapter((Context) this, userNestLists, (OnRecyclerItemClickListener) this);
         recView.setAdapter(homeAdapt);
 
         //personalize the greeting
@@ -136,6 +139,12 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), MenuActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onRecItemClick(int pos) {
+        // Handle the click event here
+        Toast.makeText(this, "Item clicked at position " + pos, Toast.LENGTH_SHORT).show();
     }
 
     //logout user
