@@ -122,7 +122,10 @@ public class HomeActivity extends AppCompatActivity {
         addListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), ListActivity.class));
+                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                intent.putExtra("listID","0");
+                intent.putExtra("userID",fUser.getUid());
+                startActivity(intent);
             }
         });
 

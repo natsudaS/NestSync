@@ -1,7 +1,11 @@
 package com.natsu.nestsync.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.natsu.nestsync.ListAdapter;
 import com.natsu.nestsync.R;
 import com.natsu.nestsync.models.Item;
+import com.natsu.nestsync.models.NestList;
 
 import org.checkerframework.checker.units.qual.A;
 
@@ -25,16 +30,22 @@ import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
     ArrayList<Item> items;
+    Button saveBtn, backBtn;
     DatabaseReference mDatabaseref;
     EditText title;
     ListAdapter listAdapt;
+    NestList newList;
     RecyclerView recView;
     String listID;
+    String userID;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listview);
 
         listID = getIntent().getStringExtra("listID");
+        userID = getIntent().getStringExtra("userID");
+        saveBtn = findViewById(R.id.saveButton);
+        backBtn = findViewById(R.id.backButton);
         title = findViewById(R.id.editTitle);
         recView = findViewById(R.id.itemsList);
 
@@ -46,7 +57,9 @@ public class ListActivity extends AppCompatActivity {
         listAdapt = new ListAdapter(this,items);
         recView.setAdapter(listAdapt);
 
-        if (listID == null){
+        if (listID.equals("0")){
+            newList = new NestList(userID,"");
+            Toast.makeText(ListActivity.this, "new List created", Toast.LENGTH_SHORT).show();
             //direkt neues nestList objekt, titel entspricht titel eingabe, items erstellte items
             //speicherung in datenbank on save
         } else {
@@ -56,6 +69,7 @@ public class ListActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String nestListTitle = dataSnapshot.getValue(String.class);
                     title.setText(nestListTitle);
+                    Toast.makeText(ListActivity.this, "List opened: "+nestListTitle, Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
@@ -63,6 +77,7 @@ public class ListActivity extends AppCompatActivity {
                     // Handle errors if any
                 }
             });
+
             //query to display current nestList items
             mDatabaseref.child("listID").child("items").addValueEventListener(new ValueEventListener() {
                 @Override
@@ -94,5 +109,27 @@ public class ListActivity extends AppCompatActivity {
                 }
             });
         }
+
+        saveBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                String listTitle = title.getText().toString();
+                if(listID.equals("0")){
+                    //zunächst Objekt ausbauen, dann Objekt in die Datenbank schreiben
+                    newList.setNestListTitle(listTitle);
+                    Toast.makeText(ListActivity.this, "Title saved as: "+listTitle, Toast.LENGTH_SHORT).show();
+                } else {
+                    //direkt in die Datenbank schreiben
+                }
+
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            }
+        });
     }
 }

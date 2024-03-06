@@ -48,6 +48,9 @@ public class NestList {
     public String getNestListUUID() {return nestListUUID;}
 
     public String getNestListTitle(){return nestListTitle;}
+    public void setNestListTitle(String title){
+        nestListTitle = title;
+    }
 
     public List getItems(){return items;}
 
