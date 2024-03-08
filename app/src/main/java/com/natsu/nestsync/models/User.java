@@ -32,7 +32,8 @@ public class User {
         this.name = name;
         nestLists = new HashMap<String, Boolean>();
         sampleNestList = new NestList();
-        sampleNestList.writeNewList(fUser.getUid(), "Sample");
+        sampleNestList.setNestListTitle("Sample");
+        sampleNestList.writeNewList(fUser.getUid());
         nestLists.put(sampleNestList.getNestListUUID(), true);
     }
 

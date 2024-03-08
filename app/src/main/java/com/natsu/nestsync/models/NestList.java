@@ -20,7 +20,7 @@ public class NestList {
     private String nestListUUID;
     private String nestListTitle;
     private Item item;
-    private List items;
+    private List items, memberIDs;
 
     //database connection
     private DatabaseReference nestListDataRef = FirebaseDatabase.getInstance().getReference().child("nestLists");
@@ -28,18 +28,16 @@ public class NestList {
 
     public NestList(){
         //needed for firebase
+        nestListUUID = "NL_" + UUID.randomUUID().toString();
+        nestListTitle = "Untitled";
+        memberIDs = new ArrayList();
+        items = new ArrayList();
     }
 
-    private void addNestListToUser(String userid){
-        usersDataRef.child(userid).child("nestLists").child(this.getNestListUUID()).setValue("true");
-    }
-
-    public void writeNewList(String userid, String title){
+    //publics
+    public void writeNewList(String userid){
         Log.i(TAG, "writeNewList() called");
-        nestListUUID = "nestList" + UUID.randomUUID().toString();
-        setNestListTitle(title);
         if(nestListTitle.equals("Sample")){
-            items = new ArrayList<>();
             item = new Item("sample Item");
             items.add(item);
         }
@@ -47,10 +45,15 @@ public class NestList {
         addNestListToUser(userid);
     }
 
+    //publics
     public String getNestListUUID() {return nestListUUID;}
-
     public String getNestListTitle(){return nestListTitle;}
-    public void setNestListTitle(String title){
-        nestListTitle = title;
+    public void setNestListTitle(String title){nestListTitle=title;}
+    public List getMemberIDs(){return memberIDs;}
+    public List getItems(){return items;}
+
+    //privates
+    private void addNestListToUser(String userid){
+        usersDataRef.child(userid).child("nestLists").child(this.getNestListUUID()).setValue("true");
     }
 }

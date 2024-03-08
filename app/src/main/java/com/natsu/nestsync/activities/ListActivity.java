@@ -60,7 +60,7 @@ public class ListActivity extends AppCompatActivity {
 
         if (listID.equals("0")){
             newList = new NestList();
-            newList.writeNewList(userID,"");
+            newList.writeNewList(userID);
             Toast.makeText(ListActivity.this, "new List created", Toast.LENGTH_SHORT).show();
             //speicherung in datenbank on save
         } else {
