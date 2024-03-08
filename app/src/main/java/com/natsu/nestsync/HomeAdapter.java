@@ -14,12 +14,13 @@ import java.util.ArrayList;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
     private Context context;
-    private ArrayList<String> nestLists;
+    private ArrayList<String> nestLists, ids;
     private static OnRecyclerItemClickListener mRecListener;
 
-    public HomeAdapter(Context context, ArrayList<String> nestLists, OnRecyclerItemClickListener mRecListener){
+    public HomeAdapter(Context context, ArrayList<String> nestLists, ArrayList<String> ids, OnRecyclerItemClickListener mRecListener){
         this.context = context;
         this.nestLists = nestLists;
+        this.ids = ids;
         this.mRecListener = mRecListener;
     }
 
@@ -32,7 +33,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
-
         String name = nestLists.get(position);
         holder.listname.setText(name);
     }
@@ -42,7 +42,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         return nestLists.size();
     }
 
-    public static class HomeViewHolder extends RecyclerView.ViewHolder {
+    public class HomeViewHolder extends RecyclerView.ViewHolder {
         TextView listname;
         Button listdel;
         public HomeViewHolder(@NonNull View itemView) {
@@ -56,8 +56,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                 public void onClick(View v) {
                     if(mRecListener != null){
                         int pos = getAdapterPosition();
+                        String id = ids.get(pos);
                         if (pos != RecyclerView.NO_POSITION){
-                            mRecListener.onRecItemClick(pos);
+                            mRecListener.onRecItemClick(pos,id);
                         }
                     }
                 }

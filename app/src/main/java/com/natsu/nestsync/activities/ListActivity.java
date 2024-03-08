@@ -38,6 +38,7 @@ public class ListActivity extends AppCompatActivity {
     RecyclerView recView;
     String listID;
     String userID;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listview);
@@ -58,13 +59,13 @@ public class ListActivity extends AppCompatActivity {
         recView.setAdapter(listAdapt);
 
         if (listID.equals("0")){
-            newList = new NestList(userID,"");
+            newList = new NestList();
+            newList.writeNewList(userID,"");
             Toast.makeText(ListActivity.this, "new List created", Toast.LENGTH_SHORT).show();
-            //direkt neues nestList objekt, titel entspricht titel eingabe, items erstellte items
             //speicherung in datenbank on save
         } else {
             //query to display current nestList title
-            mDatabaseref.child("listID").child("nestListTitle").addValueEventListener(new ValueEventListener() {
+            mDatabaseref.child(listID).child("nestListTitle").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String nestListTitle = dataSnapshot.getValue(String.class);
@@ -74,19 +75,19 @@ public class ListActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Handle errors if any
+                    Toast.makeText(ListActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             });
 
             //query to display current nestList items
-            mDatabaseref.child("listID").child("items").addValueEventListener(new ValueEventListener() {
+            mDatabaseref.child(listID).child("items").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     items.clear();
                     for (DataSnapshot snapshot1: snapshot.getChildren()){
                         String itemID = snapshot1.getKey();
 
-                        mDatabaseref.child("listID").child("items").child(itemID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        mDatabaseref.child(listID).child("items").child(itemID).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Item item = dataSnapshot.getValue(Item.class);
@@ -96,7 +97,7 @@ public class ListActivity extends AppCompatActivity {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                // Handle errors if any
+                                Toast.makeText(ListActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -105,7 +106,7 @@ public class ListActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Toast.makeText(ListActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             });
         }

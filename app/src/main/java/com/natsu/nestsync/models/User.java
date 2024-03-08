@@ -22,7 +22,7 @@ public class User {
     //database connection
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
     private FirebaseUser fUser = fAuth.getCurrentUser();
-    private DatabaseReference userDataRef = FirebaseDatabase.getInstance().getReference().child("users");
+    private DatabaseReference userDataRef = FirebaseDatabase.getInstance().getReference().child("users").child(fUser.getUid());
 
     public User() {
         //needed for firebase
@@ -31,14 +31,14 @@ public class User {
     public User(String name) {
         this.name = name;
         nestLists = new HashMap<String, Boolean>();
-        sampleNestList = new NestList(fUser.getUid(), "Sample");
-        sampleNestList.writeNewList();
+        sampleNestList = new NestList();
+        sampleNestList.writeNewList(fUser.getUid(), "Sample");
         nestLists.put(sampleNestList.getNestListUUID(), true);
     }
 
     public void writeNewUser() {
         Log.i(TAG, "writeNewUser() called");
-        userDataRef.child(fUser.getUid()).setValue(this);
+        userDataRef.setValue(this);
     }
 
     public String getUsername(){return name;}
