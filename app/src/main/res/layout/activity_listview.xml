@@ -19,14 +19,6 @@
             android:text="Zurück"
             android:layout_gravity="start" />
 
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginEnd="15dp"
-            android:text="Save"
-            android:layout_gravity="end" />
-
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.cardview.widget.CardView
