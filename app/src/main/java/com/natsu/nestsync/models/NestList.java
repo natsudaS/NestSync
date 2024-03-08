@@ -53,8 +53,11 @@ public class NestList {
     public void setNestListTitle(String title){nestListTitle=title;}
     public HashMap getMemberIDs(){return memberIDs;}
     public List getItems(){return items;}
-    public void addMemberToNestList(String userid){
-        nestListDataRef.child(nestListUUID).child("memberIDs").child(userid).setValue(true);
+
+    //public void updateNestListTitle(String nestListID, String title){}
+
+    public void addMemberToNestList(String nestListID, String userid){
+        nestListDataRef.child(nestListID).child("memberIDs").child(userid).setValue(true);
     }
 
     //privates

@@ -61,8 +61,9 @@ public class ListActivity extends AppCompatActivity {
         if (listID.equals("0")){
             newList = new NestList();
             newList.writeNewList(userID);
+            title.setText(newList.getNestListTitle());
+            listID = newList.getNestListUUID();
             Toast.makeText(ListActivity.this, "new List created", Toast.LENGTH_SHORT).show();
-            //speicherung in datenbank on save
         } else {
             //query to display current nestList title
             mDatabaseref.child(listID).child("nestListTitle").addValueEventListener(new ValueEventListener() {
@@ -78,51 +79,47 @@ public class ListActivity extends AppCompatActivity {
                     Toast.makeText(ListActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                 }
             });
-
-            //query to display current nestList items
-            mDatabaseref.child(listID).child("items").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    items.clear();
-                    for (DataSnapshot snapshot1: snapshot.getChildren()){
-                        String itemID = snapshot1.getKey();
-
-                        mDatabaseref.child(listID).child("items").child(itemID).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                Item item = dataSnapshot.getValue(Item.class);
-                                items.add(item); // Add the name of the nestList instead of its UUID
-                                listAdapt.notifyDataSetChanged(); // Notify RecyclerView adapter of the data change
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(ListActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                    listAdapt.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Toast.makeText(ListActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
 
-        saveBtn.setOnClickListener(new View.OnClickListener(){
+        //query to display current nestList items
+        mDatabaseref.child(listID).child("items").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v){
-                String listTitle = title.getText().toString();
-                if(listID.equals("0")){
-                    //zunächst Objekt ausbauen, dann Objekt in die Datenbank schreiben
-                    newList.setNestListTitle(listTitle);
-                    Toast.makeText(ListActivity.this, "Title saved as: "+listTitle, Toast.LENGTH_SHORT).show();
-                } else {
-                    //direkt in die Datenbank schreiben
-                }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                items.clear();
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    String itemID = snapshot1.getKey();
 
+                    mDatabaseref.child(listID).child("items").child(itemID).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Item item = dataSnapshot.getValue(Item.class);
+                            items.add(item); // Add the name of the nestList instead of its UUID
+                            listAdapt.notifyDataSetChanged(); // Notify RecyclerView adapter of the data change
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(ListActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                listAdapt.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ListActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //change title
+        title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    String newTitle = title.getText().toString();
+                    mDatabaseref.child(listID).child("nestListTitle").setValue(newTitle);
+                }
             }
         });
 

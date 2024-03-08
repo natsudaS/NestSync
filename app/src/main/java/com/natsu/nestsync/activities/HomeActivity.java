@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity implements OnRecyclerItemCli
     FirebaseUser fUser;
     DatabaseReference mDatabaseref;
     HomeAdapter homeAdapt;
+    LinearLayoutManager layoutManager;
     RecyclerView recView;
     String name;
     TextView greeting;
@@ -61,7 +62,9 @@ public class HomeActivity extends AppCompatActivity implements OnRecyclerItemCli
 
         //lists display
         recView.setHasFixedSize(true);
-        recView.setLayoutManager(new LinearLayoutManager(this));
+        layoutManager = new LinearLayoutManager(this);
+        //layoutManager.setReverseLayout(true);
+        recView.setLayoutManager(layoutManager);
         userNestListNames = new ArrayList<>();
         userNestListIds = new ArrayList<>();
         homeAdapt = new HomeAdapter((Context) this, userNestListNames, userNestListIds, (OnRecyclerItemClickListener) this);
