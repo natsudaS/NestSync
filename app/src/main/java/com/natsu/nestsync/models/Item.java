@@ -11,6 +11,7 @@ public class Item {
     private String itemName;
     private Boolean itemStatus;
 
+    public Item (){}
     public Item(String name) {
         itemName = name;
         itemStatus = false;

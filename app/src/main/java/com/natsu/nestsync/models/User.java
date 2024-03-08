@@ -22,23 +22,20 @@ public class User {
     //database connection
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
     private FirebaseUser fUser = fAuth.getCurrentUser();
-    private DatabaseReference userDataRef = FirebaseDatabase.getInstance().getReference().child("users");
+    private DatabaseReference userDataRef = FirebaseDatabase.getInstance().getReference().child("users").child(fUser.getUid());
 
     public User() {
-        //needed for firebase
-    }
-
-    public User(String name) {
-        this.name = name;
         nestLists = new HashMap<String, Boolean>();
-        sampleNestList = new NestList(fUser.getUid(), "Sample");
-        sampleNestList.writeNewList();
-        nestLists.put(sampleNestList.getNestListUUID(), true);
     }
 
-    public void writeNewUser() {
+    public void writeNewUser(String name) {
         Log.i(TAG, "writeNewUser() called");
-        userDataRef.child(fUser.getUid()).setValue(this);
+        this.name = name;
+        sampleNestList = new NestList();
+        sampleNestList.setNestListTitle("Sample");
+        sampleNestList.writeNewList(fUser.getUid());
+        nestLists.put(sampleNestList.getNestListUUID(), true);
+        userDataRef.setValue(this);
     }
 
     public String getUsername(){return name;}

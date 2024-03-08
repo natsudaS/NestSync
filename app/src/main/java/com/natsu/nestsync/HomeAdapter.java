@@ -12,24 +12,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> {
-    Context context;
-    ArrayList<String> nestLists;
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
+    private Context context;
+    private ArrayList<String> nestLists, ids;
+    private static OnRecyclerItemClickListener mRecListener;
 
-    public HomeAdapter(Context context, ArrayList<String> nestLists){
+    public HomeAdapter(Context context, ArrayList<String> nestLists, ArrayList<String> ids, OnRecyclerItemClickListener mRecListener){
         this.context = context;
         this.nestLists = nestLists;
+        this.ids = ids;
+        this.mRecListener = mRecListener;
     }
+
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.listitem_home,parent,false);
-        return new MyViewHolder(v);
+    public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(context).inflate(R.layout.listcard_home,parent,false);
+        return new HomeViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+    public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
         String name = nestLists.get(position);
         holder.listname.setText(name);
     }
@@ -38,14 +41,28 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
     public int getItemCount() {
         return nestLists.size();
     }
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+
+    public class HomeViewHolder extends RecyclerView.ViewHolder {
         TextView listname;
         Button listdel;
-        public MyViewHolder(@NonNull View itemView) {
+        public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
 
             listname = itemView.findViewById(R.id.listname);
             listdel = itemView.findViewById(R.id.listdel);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mRecListener != null){
+                        int pos = getAdapterPosition();
+                        String id = ids.get(pos);
+                        if (pos != RecyclerView.NO_POSITION){
+                            mRecListener.onRecItemClick(pos,id);
+                        }
+                    }
+                }
+            });
         }
     }
 }

@@ -20,42 +20,47 @@ public class NestList {
     private String nestListUUID;
     private String nestListTitle;
     private Item item;
-    private HashMap members;
     private List items;
+    private HashMap memberIDs;
 
     //database connection
     private DatabaseReference nestListDataRef = FirebaseDatabase.getInstance().getReference().child("nestLists");
+    private DatabaseReference usersDataRef = FirebaseDatabase.getInstance().getReference().child("users");
 
     public NestList(){
         //needed for firebase
+        nestListUUID = "nestList_" + UUID.randomUUID().toString();
+        nestListTitle = "Untitled";
+        memberIDs = new HashMap();
+        items = new ArrayList();
     }
 
-    public NestList(String userID, String title) {
-        nestListTitle = title;
-        members = new HashMap<String,Boolean>();
-        members.put(userID,true);
-        item = new Item("sample");
-        items = new ArrayList<Item>();
-        items.add(item);
-    }
-
-    public void writeNewList(){
+    //publics
+    public void writeNewList(String userid){
         Log.i(TAG, "writeNewList() called");
-        nestListUUID = nestListTitle + UUID.randomUUID().toString();
+        if(nestListTitle.equals("Sample")){
+            item = new Item("sample Item");
+            items.add(item);
+        }
+        memberIDs.put(userid, true);
         nestListDataRef.child(nestListUUID).setValue(this);
+        addNestListToUser(userid);
     }
 
+    //publics
     public String getNestListUUID() {return nestListUUID;}
-
     public String getNestListTitle(){return nestListTitle;}
-
+    public void setNestListTitle(String title){nestListTitle=title;}
+    public HashMap getMemberIDs(){return memberIDs;}
     public List getItems(){return items;}
+    public void addMemberToNestList(String userid){
+        nestListDataRef.child(nestListUUID).child("memberIDs").child(userid).setValue(true);
+    }
 
-    /*public List getMemberNames() {
-        List memberNames = new ArrayList<>();
-        for (Object i : members.keySet()) {
-            memberNames.add(i);
-        }
-        return memberNames;
-    }*/
+    //privates
+    private void addNestListToUser(String userid){
+        usersDataRef.child(userid).child("nestLists").child(nestListUUID).setValue(true);
+    }
+
+
 }
