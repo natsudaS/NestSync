@@ -25,20 +25,16 @@ public class User {
     private DatabaseReference userDataRef = FirebaseDatabase.getInstance().getReference().child("users").child(fUser.getUid());
 
     public User() {
-        //needed for firebase
+        nestLists = new HashMap<String, Boolean>();
     }
 
-    public User(String name) {
+    public void writeNewUser(String name) {
+        Log.i(TAG, "writeNewUser() called");
         this.name = name;
-        nestLists = new HashMap<String, Boolean>();
         sampleNestList = new NestList();
         sampleNestList.setNestListTitle("Sample");
         sampleNestList.writeNewList(fUser.getUid());
         nestLists.put(sampleNestList.getNestListUUID(), true);
-    }
-
-    public void writeNewUser() {
-        Log.i(TAG, "writeNewUser() called");
         userDataRef.setValue(this);
     }
 
