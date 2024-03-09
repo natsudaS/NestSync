@@ -63,7 +63,6 @@ public class HomeActivity extends AppCompatActivity implements OnRecyclerItemCli
         //lists display
         recView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        //layoutManager.setReverseLayout(true);
         recView.setLayoutManager(layoutManager);
         userNestListNames = new ArrayList<>();
         userNestListIds = new ArrayList<>();
@@ -98,8 +97,8 @@ public class HomeActivity extends AppCompatActivity implements OnRecyclerItemCli
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             String nestListTitle = dataSnapshot.getValue(String.class);
-                            userNestListNames.add(nestListTitle); // Add the name of the nestList instead of its UUID
-                            homeAdapt.notifyDataSetChanged(); // Notify RecyclerView adapter of the data change
+                            userNestListNames.add(nestListTitle);
+                            homeAdapt.notifyDataSetChanged();
                         }
 
                         @Override
