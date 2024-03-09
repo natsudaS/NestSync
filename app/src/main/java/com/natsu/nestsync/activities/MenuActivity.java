@@ -61,11 +61,38 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
+        dataRef.child("users").child(fUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = snapshot.getValue().toString();
+                nameEdit.setText(name);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        dataRef.child("users").child(fUser.getUid()).child("email").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String mail = snapshot.getValue().toString();
+                mailEdit.setText(mail);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         nameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newName = nameEdit.getText().toString();
                 dataRef.child("users").child(fUser.getUid()).child("username").setValue(newName);
+                Toast.makeText(getApplicationContext(), "username updated!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -73,55 +100,16 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String newEmail = mailEdit.getText().toString();
-                fUser.verifyBeforeUpdateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                fUser.updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User email address updated.");
-                            dataRef.child("users").child(fUser.getUid()).child("email").setValue(newEmail);
-                            mailEdit.setText(fUser.getEmail());
-                        }
+                        Log.d(TAG, "User email address updated: "+ fUser.getEmail());
+                        dataRef.child("users").child(fUser.getUid()).child("email").setValue(newEmail);
+                        Toast.makeText(getApplicationContext(), "mail updated only in realtime database", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
-
-        /*pswdBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String oldPswd = oldPswdEdit.getText().toString();
-                String newPswd = newPswdEdit.getText().toString();
-
-                if (TextUtils.isEmpty(oldPswd)){
-                    oldPswdEdit.setError("Old Password is required.");
-                    return;
-                }
-
-                if (TextUtils.isEmpty(newPswd)){
-                    newPswdEdit.setError("New Password is required.");
-                    return;
-                }
-
-                if (newPswd.length() < 8){
-                    newPswdEdit.setError("Password must be 8 characters or longer.");
-                    return;
-                }
-
-                if (newPswd.equals(oldPswd)){
-                    newPswdEdit.setError("Passwords must differ.");
-                    return;
-                }
-                fUser.updatePassword(newPswd).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User password updated.");
-
-                        }
-                    }
-                });
-            }
-        });*/
 
         friendsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
