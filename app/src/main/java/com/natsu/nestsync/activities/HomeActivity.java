@@ -149,6 +149,7 @@ public class HomeActivity extends AppCompatActivity implements OnRecyclerItemCli
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 
+    //switch to list view
     @Override
     public void onRecItemClick(int pos, String id) {
         Toast.makeText(this, "Item clicked at position " + pos + "with id: " + id, Toast.LENGTH_SHORT).show();
@@ -156,5 +157,16 @@ public class HomeActivity extends AppCompatActivity implements OnRecyclerItemCli
         intent.putExtra("listID",id);
         startActivity(intent);
     }
+
+    //delete list
+    @Override
+    public void onRecItemBtnClick(int pos, String id) {
+        Toast.makeText(this, "Delete clicked at position " + pos + "with id: " + id, Toast.LENGTH_SHORT).show();
+        mDatabaseref.child("nestLists").child(id).removeValue();
+        mDatabaseref.child("users").child(fUser.getUid()).child("nestLists").child(id).removeValue();
+    }
+
+    @Override
+    public void onRecItemTextClick(String id, String text) {}
 }
 

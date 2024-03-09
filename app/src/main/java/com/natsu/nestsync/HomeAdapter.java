@@ -63,6 +63,19 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
                     }
                 }
             });
+
+            listdel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mRecListener != null){
+                        int pos = getAdapterPosition();
+                        String id = ids.get(pos);
+                        if (pos != RecyclerView.NO_POSITION){
+                            mRecListener.onRecItemBtnClick(pos,id);
+                        }
+                    }
+                }
+            });
         }
     }
 }
