@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ public class MenuActivity extends AppCompatActivity {
     //vars
     Button homeBtn,nameBtn,mailBtn,pswdBtn,friendsBtn,delBtn;
     EditText nameEdit,mailEdit,oldPswdEdit,newPswdEdit;
+    TextView idText;
 
     DatabaseReference dataRef;
     FirebaseAuth fAuth;
@@ -41,6 +43,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //get elements
         homeBtn = findViewById(R.id.homeBtn);
+        idText = findViewById(R.id.idView);
         nameEdit = findViewById(R.id.nameEdit);
         nameBtn = findViewById(R.id.nameButton);
         mailEdit = findViewById(R.id.mailEdit);
@@ -60,6 +63,8 @@ public class MenuActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
         });
+
+        idText.setText(fUser.getUid());
 
         dataRef.child("users").child(fUser.getUid()).child("username").addValueEventListener(new ValueEventListener() {
             @Override
