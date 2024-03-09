@@ -24,7 +24,7 @@ public class Item {
     }
 
     public void writeNewItem(String listID){
-        Log.i(TAG, "writeNewList() called");
+        Log.i(TAG, "writeNewItem() called to List: "+listID);
         iDataref.child(listID).child("items").child(itemUUID).setValue(this);
     }
     public String getItemUUID(){return itemUUID;}

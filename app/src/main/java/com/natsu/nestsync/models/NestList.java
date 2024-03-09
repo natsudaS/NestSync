@@ -36,11 +36,11 @@ public class NestList {
 
     //publics
     public void writeNewList(String userid){
-        Log.i(TAG, "writeNewList() called");
+        Log.i(TAG, "writeNewList() called. Title:"+this.getNestListTitle()+"ID: "+this.getNestListUUID());
         if(nestListTitle.equals("Sample")){
             sampleItem = new Item();
             sampleItem.setItemName("Sample Item");
-            sampleItem.writeNewItem(nestListUUID);
+            items.add(sampleItem);
         }
         memberIDs.put(userid, true);
         nestListDataRef.child(nestListUUID).setValue(this);
