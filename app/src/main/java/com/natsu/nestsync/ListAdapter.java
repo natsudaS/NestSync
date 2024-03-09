@@ -6,8 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,12 +19,16 @@ import com.natsu.nestsync.models.Item;
 import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
-    Context context;
-    ArrayList<Item> items;
+    private Context context;
+    private ArrayList<Item> items;
+    private static ArrayList<String> ids;
+    private static OnRecyclerItemClickListener nRecListener;
 
-    public ListAdapter(Context context, ArrayList<Item> items){
+    public ListAdapter(Context context, ArrayList<Item> items, ArrayList<String> ids, OnRecyclerItemClickListener nRecListener){
         this.context = context;
         this.items = items;
+        this.ids = ids;
+        this.nRecListener = nRecListener;
     }
     @NonNull
     @Override
@@ -34,9 +40,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
     @Override
     public void onBindViewHolder(@NonNull ListViewHolder holder, int position) {
         String item_text = items.get(position).getItemName();
-        Boolean status = items.get(position).getItemStatus();
         holder.itemText.setText(item_text);
-        holder.itemStatus.setChecked(status);
     }
 
     @Override
@@ -52,6 +56,33 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
             itemText = itemView.findViewById(R.id.itemText);
             itemStatus = itemView.findViewById(R.id.itemCheck);
+
+            itemText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(nRecListener != null && !hasFocus){
+                        int pos = getAdapterPosition();
+                        String id = ids.get(pos);
+                        String newText = itemText.getText().toString();
+                        if (pos != RecyclerView.NO_POSITION){
+                            nRecListener.onRecItemTextClick(id,newText);
+                        }
+                    }
+                }
+            });
+
+            itemStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(nRecListener != null && isChecked){
+                        int pos = getAdapterPosition();
+                        String id = ids.get(pos);
+                        if (pos != RecyclerView.NO_POSITION){
+                            nRecListener.onRecItemBtnClick(pos,id);
+                        }
+                    }
+                }
+            });
         }
     }
 }

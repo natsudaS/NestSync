@@ -1,5 +1,6 @@
 package com.natsu.nestsync.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,27 +10,24 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.common.net.InternetDomainName;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.natsu.nestsync.ListAdapter;
+import com.natsu.nestsync.OnRecyclerItemClickListener;
 import com.natsu.nestsync.R;
 import com.natsu.nestsync.models.Item;
 import com.natsu.nestsync.models.NestList;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
 
-public class ListActivity extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity implements OnRecyclerItemClickListener {
     ArrayList<String> itemIds;
     ArrayList<Item> items;
     Button backBtn;
@@ -60,7 +58,7 @@ public class ListActivity extends AppCompatActivity {
         recView.setLayoutManager(new LinearLayoutManager(this));
         items = new ArrayList();
         itemIds = new ArrayList();
-        listAdapt = new ListAdapter(this,items);
+        listAdapt = new ListAdapter((Context) this, items, itemIds, (OnRecyclerItemClickListener) this);
         recView.setAdapter(listAdapt);
 
         if (listID.equals("0")){
@@ -137,6 +135,7 @@ public class ListActivity extends AppCompatActivity {
                 Item newItem = new Item();
                 newItem.setItemName(text);
                 newItem.writeNewItem(listID);
+                newItemText.setText("");
             }
         });
 
@@ -146,5 +145,23 @@ public class ListActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onRecItemClick(int pos, String id) {
+    }
+
+    //checkbox change
+    @Override
+    public void onRecItemBtnClick(int pos, String id) {
+        Toast.makeText(this, "status changed" + pos + "with id: " + id, Toast.LENGTH_SHORT).show();
+        mDatabaseref.child(listID).child("items").child(id).removeValue();
+    }
+
+    //name change on EditText
+    @Override
+    public void onRecItemTextClick(String id, String text){
+        Toast.makeText(this, "Text changed with id: " + id, Toast.LENGTH_SHORT).show();
+        mDatabaseref.child(listID).child("items").child(id).child("itemName").setValue(text);
     }
 }
