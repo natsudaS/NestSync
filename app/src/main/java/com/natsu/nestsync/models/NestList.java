@@ -19,7 +19,7 @@ public class NestList {
     //class vars needed for nestList
     private String nestListUUID;
     private String nestListTitle;
-    private Item item;
+    private Item sampleItem;
     private List items;
     private HashMap memberIDs;
 
@@ -28,7 +28,6 @@ public class NestList {
     private DatabaseReference usersDataRef = FirebaseDatabase.getInstance().getReference().child("users");
 
     public NestList(){
-        //needed for firebase
         nestListUUID = "nestList_" + UUID.randomUUID().toString();
         nestListTitle = "Untitled";
         memberIDs = new HashMap();
@@ -37,25 +36,22 @@ public class NestList {
 
     //publics
     public void writeNewList(String userid){
-        Log.i(TAG, "writeNewList() called");
+        Log.i(TAG, "writeNewList() called. Title:"+this.getNestListTitle()+"ID: "+this.getNestListUUID());
         if(nestListTitle.equals("Sample")){
-            item = new Item("sample Item");
-            items.add(item);
+            sampleItem = new Item();
+            sampleItem.setItemName("Sample Item");
+            items.add(sampleItem);
         }
         memberIDs.put(userid, true);
         nestListDataRef.child(nestListUUID).setValue(this);
         addNestListToUser(userid);
     }
 
-    //publics
     public String getNestListUUID() {return nestListUUID;}
     public String getNestListTitle(){return nestListTitle;}
     public void setNestListTitle(String title){nestListTitle=title;}
     public HashMap getMemberIDs(){return memberIDs;}
     public List getItems(){return items;}
-    public void addMemberToNestList(String userid){
-        nestListDataRef.child(nestListUUID).child("memberIDs").child(userid).setValue(true);
-    }
 
     //privates
     private void addNestListToUser(String userid){
