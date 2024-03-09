@@ -138,9 +138,11 @@ public class FriendsActivity extends AppCompatActivity implements OnRecyclerItem
 
     }
 
+    //delete friend
     @Override
     public void onRecItemBtnClick(int pos, String id) {
-
+        dataRef.child(id).child("friends").child(fUser.getUid()).removeValue();
+        dataRef.child(fUser.getUid()).child("friends").child(id).removeValue();
     }
 
     @Override
