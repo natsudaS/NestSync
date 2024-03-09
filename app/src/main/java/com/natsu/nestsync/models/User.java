@@ -16,6 +16,7 @@ import java.util.UUID;
 public class User {
     //class vars needed for user
     private String name;
+    private String email;
     private HashMap nestLists;
     private NestList sampleNestList;
 
@@ -28,9 +29,10 @@ public class User {
         nestLists = new HashMap<String, Boolean>();
     }
 
-    public void writeNewUser(String name) {
+    public void writeNewUser(String name, String email) {
         Log.i(TAG, "writeNewUser() called");
         this.name = name;
+        this.email = email;
         sampleNestList = new NestList();
         sampleNestList.setNestListTitle("Sample");
         sampleNestList.writeNewList(fUser.getUid());
@@ -39,5 +41,6 @@ public class User {
     }
 
     public String getUsername(){return name;}
+    public String getEmail(){return email;}
     public HashMap getNestLists(){return nestLists;}
 }
