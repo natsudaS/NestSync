@@ -90,34 +90,6 @@
                 android:layout_marginBottom="5dp"/>
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical|end"
-            android:layout_marginBottom="15dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="45dp">
-
-            <EditText
-                android:id="@+id/mailEdit"
-                android:inputType="textEmailAddress"
-                android:hint="@string/newMail"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="15dp"/>
-
-            <Button
-                android:id="@+id/mailBtn"
-                android:text="@string/changeBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
-
-        </LinearLayout>
 
         <Button
             android:id="@+id/friendsBtn"

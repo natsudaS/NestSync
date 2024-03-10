@@ -156,7 +156,7 @@ public class ListActivity extends AppCompatActivity implements OnRecyclerItemCli
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "userId passed: "+ userID);
+                Log.i(TAG, "listId passed: "+ listID);
                 Intent intent = new Intent(getApplicationContext(),MembersActivity.class);
                 intent.putExtra("listID",listID);
                 startActivity(intent);

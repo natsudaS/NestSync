@@ -10,23 +10,33 @@ import android.widget.EditText;
 import android.widget.Switch;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.natsu.nestsync.models.Item;
 
 import java.util.ArrayList;
 
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberViewHolder> {
     private Context context;
-    private static ArrayList memNames, memIds, actMem;
+    private DatabaseReference dataRef;
+    private String listID;
+    private static ArrayList memNames, memIds;
     private static OnRecyclerItemClickListener mRecListener;
 
-    public MemberAdapter(Context context, ArrayList names, ArrayList ids, ArrayList actMem, OnRecyclerItemClickListener mRecListener){
+    public MemberAdapter(Context context, ArrayList names, ArrayList ids,String listID, OnRecyclerItemClickListener mRecListener){
         this.context = context;
         this.memNames = names;
         this.memIds = ids;
-        this.actMem = actMem;
+        this.listID = listID;
         this.mRecListener = mRecListener;
+
+        dataRef = FirebaseDatabase.getInstance().getReference().child("nestLists").child(listID).child("memberIDs");
     }
 
     @NonNull
@@ -39,16 +49,25 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
     @Override
     public void onBindViewHolder(@NonNull MemberViewHolder holder, int position) {
         String memName = memNames.get(position).toString();
-        for(int i=0;i<memIds.size();i++){
-            for(int j=0;j<actMem.size();j++){
-                if(memIds.get(i).equals(actMem.get(j))){
-                    holder.posMemSwitch.setChecked(true);
-                }
-                else {
-                    holder.posMemSwitch.setChecked(false);
+        String memID = memIds.get(position).toString();
+
+        dataRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    String activeID = snapshot1.getKey().toString();
+                    if(activeID.equals(memID)){
+                        holder.posMemSwitch.setChecked(true);
+                    }
                 }
             }
-        }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         holder.posMemSwitch.setText(memName);
     }
 
@@ -58,7 +77,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
     }
 
     public static class MemberViewHolder extends RecyclerView.ViewHolder {
-        Switch posMemSwitch;
+        SwitchCompat posMemSwitch;
 
         public MemberViewHolder(@NonNull View itemView) {
             super(itemView);

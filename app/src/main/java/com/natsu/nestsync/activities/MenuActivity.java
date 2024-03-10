@@ -30,8 +30,8 @@ import com.natsu.nestsync.R;
 
 public class MenuActivity extends AppCompatActivity {
     //vars
-    Button homeBtn,nameBtn,mailBtn,pswdBtn,friendsBtn,delBtn;
-    EditText nameEdit,mailEdit,oldPswdEdit,newPswdEdit;
+    Button homeBtn,nameBtn,friendsBtn,delBtn;
+    EditText nameEdit;
     TextView idText;
 
     DatabaseReference dataRef;
@@ -46,8 +46,6 @@ public class MenuActivity extends AppCompatActivity {
         idText = findViewById(R.id.idView);
         nameEdit = findViewById(R.id.nameEdit);
         nameBtn = findViewById(R.id.nameButton);
-        mailEdit = findViewById(R.id.mailEdit);
-        mailBtn = findViewById(R.id.mailBtn);
         friendsBtn = findViewById(R.id.friendsBtn);
         delBtn = findViewById(R.id.deleteBtn);
 
@@ -79,40 +77,12 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        dataRef.child("users").child(fUser.getUid()).child("email").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String mail = snapshot.getValue().toString();
-                mailEdit.setText(mail);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
         nameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String newName = nameEdit.getText().toString();
                 dataRef.child("users").child(fUser.getUid()).child("username").setValue(newName);
                 Toast.makeText(getApplicationContext(), "username updated!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        mailBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String newEmail = mailEdit.getText().toString();
-                fUser.updateEmail(newEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.d(TAG, "User email address updated: "+ fUser.getEmail());
-                        dataRef.child("users").child(fUser.getUid()).child("email").setValue(newEmail);
-                        Toast.makeText(getApplicationContext(), "mail updated only in realtime database", Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
         });
 

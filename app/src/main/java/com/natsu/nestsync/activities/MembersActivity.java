@@ -53,7 +53,7 @@ public class MembersActivity extends AppCompatActivity implements OnRecyclerItem
         posMembers = new ArrayList<>();
         actMembers = new ArrayList<>();
         memIds = new ArrayList<>();
-        memAdapt = new MemberAdapter((Context) this, posMembers, memIds, actMembers, (OnRecyclerItemClickListener) this);
+        memAdapt = new MemberAdapter((Context) this, posMembers, memIds, listID, (OnRecyclerItemClickListener) this);
         recView.setAdapter(memAdapt);
 
         Log.i(TAG, "listID: "+listID+", userID: "+userID);
@@ -102,7 +102,10 @@ public class MembersActivity extends AppCompatActivity implements OnRecyclerItem
         toListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ListActivity.class));
+                Log.i(TAG, "listId passed: "+ listID);
+                Intent intent = new Intent(getApplicationContext(),ListActivity.class);
+                intent.putExtra("listID",listID);
+                startActivity(intent);
             }
         });
     }
