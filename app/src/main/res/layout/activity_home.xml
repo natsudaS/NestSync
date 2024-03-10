@@ -2,49 +2,50 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/menuButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="10dp"
-        android:text="Menu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/logoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/logoutbtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/menuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="15dp"
+            android:layout_gravity="start"
+            android:text="@string/menuBtn" />
+
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="end"
+            android:text="@string/logoutBtn" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/greeting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:fontFamily="sans-serif"
-        android:text="Hallo, Nutzer!"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="34sp"
-        app:layout_constraintTop_toBottomOf="@id/logoutButton" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/recCard"/>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/recCard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="15dp"
-        android:background="@drawable/lists_bg"
+        android:background="@drawable/rounded_border"
         app:cardCornerRadius="20dp"
         app:cardElevation="2dp"
         app:layout_constraintTop_toBottomOf="@id/greeting"

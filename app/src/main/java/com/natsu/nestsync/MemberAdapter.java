@@ -18,14 +18,14 @@ import java.util.ArrayList;
 
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberViewHolder> {
     private Context context;
-    private static ArrayList memNames;
-    private static ArrayList memIds;
+    private static ArrayList memNames, memIds, actMem;
     private static OnRecyclerItemClickListener mRecListener;
 
-    public MemberAdapter(Context context, ArrayList names, ArrayList ids, OnRecyclerItemClickListener mRecListener){
+    public MemberAdapter(Context context, ArrayList names, ArrayList ids, ArrayList actMem, OnRecyclerItemClickListener mRecListener){
         this.context = context;
         this.memNames = names;
         this.memIds = ids;
+        this.actMem = actMem;
         this.mRecListener = mRecListener;
     }
 
@@ -39,6 +39,16 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.MemberView
     @Override
     public void onBindViewHolder(@NonNull MemberViewHolder holder, int position) {
         String memName = memNames.get(position).toString();
+        for(int i=0;i<memIds.size();i++){
+            for(int j=0;j<actMem.size();j++){
+                if(memIds.get(i).equals(actMem.get(j))){
+                    holder.posMemSwitch.setChecked(true);
+                }
+                else {
+                    holder.posMemSwitch.setChecked(false);
+                }
+            }
+        }
         holder.posMemSwitch.setText(memName);
     }
 

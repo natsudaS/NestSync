@@ -31,7 +31,7 @@ import com.natsu.nestsync.models.Item;
 import java.util.ArrayList;
 
 public class MembersActivity extends AppCompatActivity implements OnRecyclerItemClickListener {
-    ArrayList posMembers, memIds;
+    ArrayList posMembers,actMembers,memIds;
     Button toListBtn;
     DatabaseReference dataRef;
     MemberAdapter memAdapt;
@@ -51,11 +51,13 @@ public class MembersActivity extends AppCompatActivity implements OnRecyclerItem
         recView.setHasFixedSize(true);
         recView.setLayoutManager(new LinearLayoutManager(this));
         posMembers = new ArrayList<>();
+        actMembers = new ArrayList<>();
         memIds = new ArrayList<>();
-        memAdapt = new MemberAdapter((Context) this, posMembers, memIds, (OnRecyclerItemClickListener) this);
+        memAdapt = new MemberAdapter((Context) this, posMembers, memIds, actMembers, (OnRecyclerItemClickListener) this);
         recView.setAdapter(memAdapt);
 
         Log.i(TAG, "listID: "+listID+", userID: "+userID);
+
         //query to display possible members
         dataRef.child("users").child(userID).child("friends").addValueEventListener(new ValueEventListener() {
             @Override
@@ -64,13 +66,22 @@ public class MembersActivity extends AppCompatActivity implements OnRecyclerItem
                 posMembers.clear();
                 for (DataSnapshot snapshot1 : snapshot.getChildren()) {
                     String memID = snapshot1.getKey();
+                    String name = snapshot1.getValue().toString();
                     memIds.add(memID);
-                    dataRef.child("users").child(userID).child("friends").child(memID).addListenerForSingleValueEvent(new ValueEventListener() {
+                    posMembers.add(name);
+
+                    //query to get whether a list is already shared with a particular friend
+                    dataRef.child("nestLists").child(listID).child("memberIDs").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String name = dataSnapshot.getValue().toString();
-                            posMembers.add(name);
-                            memAdapt.notifyDataSetChanged();
+                            for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                                String id = snapshot1.getKey();
+                                for(int i=0;i<memIds.size();i++){
+                                    if(id.equals(memIds.get(i))){
+                                        actMembers.add(id);
+                                    }
+                                }
+                            }
                         }
 
                         @Override
@@ -84,7 +95,7 @@ public class MembersActivity extends AppCompatActivity implements OnRecyclerItem
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(MembersActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         });
 

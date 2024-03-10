@@ -10,6 +10,19 @@
     <string name="name_hint">Enter a nickname...</string>
     <string name="pwd_hint2">Confirm password...</string>
     <string name="linkToReg">Create an Account!</string>
-    <string name="logoutbtn">Logout</string>
+    <string name="logoutBtn">Logout</string>
+    <string name="backBtn">Back</string>
+    <string name="shareBtn">Share</string>
+    <string name="title_hint">Title...</string>
+    <string name="delBtn">Delete</string>
+    <string name="menuBtn">Menu</string>
+    <string name="id">"Your ID is: "</string>
+    <string name="changeBtn">Change</string>
+    <string name="editFriendsBtn">Edit friends</string>
+    <string name="delAccountBtn">Delete Account</string>
+    <string name="friends">Friends</string>
+    <string name="uid_hint">Enter userid...</string>
+    <string name="newMail">New email...</string>
+    <string name="newName">New name...</string>
 
 </resources>

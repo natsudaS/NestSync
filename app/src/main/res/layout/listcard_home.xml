@@ -20,14 +20,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            android:text="list name" />
+            android:layout_marginEnd="15dp" />
 
         <Button
             android:id="@+id/listdel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete" />
+            android:text="@string/delBtn" />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

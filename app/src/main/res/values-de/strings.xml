@@ -11,6 +11,19 @@
     <string name="name_hint">Nutzername...</string>
     <string name="pwd_hint2">Passwort bestätigen...</string>
     <string name="linkToReg">Erstelle einen Account!</string>
-    <string name="logoutbtn">Abmelden</string>
+    <string name="logoutBtn">Abmelden</string>
+    <string name="backBtn">Zurück</string>
+    <string name="shareBtn">Teilen</string>
+    <string name="title_hint">Titel...</string>
+    <string name="delBtn">Löschen</string>
+    <string name="menuBtn">Menü</string>
+    <string name="id">"Deine ID ist: "</string>
+    <string name="changeBtn">Ändern</string>
+    <string name="editFriendsBtn">Freundesliste bearbeiten</string>
+    <string name="delAccountBtn">Account löschen</string>
+    <string name="friends">Freunde</string>
+    <string name="uid_hint">Freundes-ID eingeben...</string>
+    <string name="newMail">Neue E-mail...</string>
+    <string name="newName">Neuer Name...</string>
 
 </resources>

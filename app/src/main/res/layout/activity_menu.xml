@@ -17,12 +17,13 @@
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginStart="15dp"
-            android:text="Zurück"
+            android:text="@string/backBtn"
             android:layout_gravity="start" />
 
         <TextView
             android:id="@+id/menuView"
-            android:text="Menu"
+            android:text="@string/menuBtn"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -45,12 +46,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Your ID is: "/>
+                android:text="@string/id"
+                android:textSize="18sp"/>
 
             <TextView
                 android:id="@+id/idView"
@@ -70,16 +73,17 @@
 
             <EditText
                 android:id="@+id/nameEdit"
-                android:hint="new name"
+                android:inputType="text"
+                android:hint="@string/newName"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginEnd="15dp"/>
 
             <Button
                 android:id="@+id/nameButton"
-                android:text="Ändern"
+                android:text="@string/changeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -97,17 +101,17 @@
 
             <EditText
                 android:id="@+id/mailEdit"
-                android:hint="new mail adress"
                 android:inputType="textEmailAddress"
+                android:hint="@string/newMail"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
                 android:layout_marginEnd="15dp"/>
 
             <Button
                 android:id="@+id/mailBtn"
-                android:text="Ändern"
+                android:text="@string/changeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -117,7 +121,7 @@
 
         <Button
             android:id="@+id/friendsBtn"
-            android:text="Freundesliste bearbeiten"
+            android:text="@string/editFriendsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -125,7 +129,7 @@
 
         <Button
             android:id="@+id/deleteBtn"
-            android:text="Account löschen"
+            android:text="@string/delAccountBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
