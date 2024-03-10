@@ -5,20 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/registerBtn"
-        android:layout_width="126dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="143dp"
-        android:layout_marginBottom="199dp"
-        android:text="@string/registerBtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editRegPassword2" />
-
     <TextView
         android:id="@+id/registerPrompt"
         android:layout_width="wrap_content"
@@ -67,6 +53,21 @@
         app:layout_constraintTop_toBottomOf="@+id/registerPrompt" />
 
     <EditText
+        android:id="@+id/editRegPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="100dp"
+        android:autofillHints="password"
+        android:ems="10"
+        android:hint="@string/pwd_hint"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editRegMail" />
+
+    <EditText
         android:id="@+id/editRegPassword2"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
@@ -81,20 +82,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editRegPassword" />
 
-    <EditText
-        android:id="@+id/editRegPassword"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/registerBtn"
+        android:layout_width="126dp"
         android:layout_height="48dp"
-        android:layout_marginStart="101dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="100dp"
-        android:autofillHints="password"
-        android:ems="10"
-        android:hint="@string/pwd_hint"
-        android:inputType="textPassword"
+        android:layout_marginStart="142dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="143dp"
+        android:layout_marginBottom="199dp"
+        android:text="@string/registerBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editRegMail" />
+        app:layout_constraintTop_toBottomOf="@+id/editRegPassword2" />
 
     <TextView
         android:id="@+id/linkToLog"

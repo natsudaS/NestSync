@@ -12,7 +12,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/toMenuButton"
+            android:id="@+id/toListButton"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginStart="15dp"
@@ -20,11 +20,13 @@
             android:layout_gravity="start" />
 
         <TextView
-            android:id="@+id/friendsText"
+            android:id="@+id/shareView"
+            android:text="@string/shareBtn"
+            android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/friends"
-            android:textSize="20sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_gravity="center"/>
 
     </androidx.appcompat.widget.Toolbar>
@@ -45,40 +47,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical" >
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/friendsList"
+                android:id="@+id/memList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp" />
 
-            <LinearLayout
-                android:id="@+id/addItemLayout"
-                android:layout_width="match_parent"
-                android:layout_height="104dp"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/addUserEditText"
-                    android:hint="@string/uid_hint"
-                    android:inputType="text"
-                    android:layout_width="275dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_margin="15dp" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/addUserButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:clickable="true"
-                    app:srcCompat="@android:drawable/ic_menu_add" />
-
-            </LinearLayout>
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

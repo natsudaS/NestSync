@@ -98,6 +98,7 @@ public class FriendsActivity extends AppCompatActivity implements OnRecyclerItem
             }
         });
 
+        //add new friends
         addFriendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +116,7 @@ public class FriendsActivity extends AppCompatActivity implements OnRecyclerItem
                                         // Write data to both user's friends list
                                         dataRef.child(fUser.getUid()).child("friends").child(friendID).setValue(name);
                                         dataRef.child(friendID).child("friends").child(fUser.getUid()).setValue(username);
+                                        addFriendEdit.setText("");
                                     }
                                 }
 

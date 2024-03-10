@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_gravity="right"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/posMemSwitch"
+        android:text="hallo"
+        android:textSize="18sp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:checked="false"/>
+
+</androidx.cardview.widget.CardView>
