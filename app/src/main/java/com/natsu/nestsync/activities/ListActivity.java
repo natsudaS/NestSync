@@ -1,8 +1,11 @@
 package com.natsu.nestsync.activities;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +39,7 @@ public class ListActivity extends AppCompatActivity implements OnRecyclerItemCli
     DatabaseReference mDatabaseref;
     EditText title, newItemText;
     FloatingActionButton addItemBtn;
+    FirebaseUser fUser;
     ListAdapter listAdapt;
     NestList newList;
     RecyclerView recView;
@@ -45,7 +51,7 @@ public class ListActivity extends AppCompatActivity implements OnRecyclerItemCli
         setContentView(R.layout.activity_listview);
 
         listID = getIntent().getStringExtra("listID");
-        userID = getIntent().getStringExtra("userID");
+        userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
         backBtn = findViewById(R.id.backButton);
         shareBtn = findViewById(R.id.shareButton);
         title = findViewById(R.id.editTitle);
@@ -150,9 +156,9 @@ public class ListActivity extends AppCompatActivity implements OnRecyclerItemCli
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "userId passed: "+ userID);
                 Intent intent = new Intent(getApplicationContext(),MembersActivity.class);
                 intent.putExtra("listID",listID);
-                intent.putExtra("userID",userID);
                 startActivity(intent);
             }
         });

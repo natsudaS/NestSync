@@ -1,5 +1,7 @@
 package com.natsu.nestsync.activities;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -134,9 +136,9 @@ public class HomeActivity extends AppCompatActivity implements OnRecyclerItemCli
         addListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "user id from home: "+fUser.getUid());
                 Intent intent = new Intent(getApplicationContext(), ListActivity.class);
                 intent.putExtra("listID","0");
-                intent.putExtra("userID",fUser.getUid());
                 startActivity(intent);
             }
         });
