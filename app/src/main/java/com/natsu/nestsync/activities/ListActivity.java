@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class ListActivity extends AppCompatActivity implements OnRecyclerItemClickListener {
     ArrayList<String> itemIds;
     ArrayList<Item> items;
-    Button backBtn;
+    Button backBtn,shareBtn;
     DatabaseReference mDatabaseref;
     EditText title, newItemText;
     FloatingActionButton addItemBtn;
@@ -47,6 +47,7 @@ public class ListActivity extends AppCompatActivity implements OnRecyclerItemCli
         listID = getIntent().getStringExtra("listID");
         userID = getIntent().getStringExtra("userID");
         backBtn = findViewById(R.id.backButton);
+        shareBtn = findViewById(R.id.shareButton);
         title = findViewById(R.id.editTitle);
         recView = findViewById(R.id.itemsList);
         newItemText = findViewById(R.id.addItemEditText);
@@ -143,6 +144,16 @@ public class ListActivity extends AppCompatActivity implements OnRecyclerItemCli
             @Override
             public void onClick(View v){
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            }
+        });
+
+        shareBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),MembersActivity.class);
+                intent.putExtra("listID",listID);
+                intent.putExtra("userID",userID);
+                startActivity(intent);
             }
         });
     }

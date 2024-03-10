@@ -27,6 +27,7 @@
         <activity android:name=".activities.ListActivity" />
         <activity android:name=".activities.MenuActivity" />
         <activity android:name=".activities.FriendsActivity" />
+        <activity android:name=".activities.MembersActivity" />
     </application>
 
 </manifest>
