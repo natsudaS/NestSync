@@ -101,25 +101,60 @@ public class MenuActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()){
                             Log.d(TAG, "User account deleted.");
-                            dataRef.child("users").child(fUser.getUid()).child("nestLists").addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    for (DataSnapshot snapshot1: snapshot.getChildren()){
-                                        String listID = snapshot1.getKey();
-                                        dataRef.child("nestLists").child(listID).removeValue();
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
+                            deleteFromNestLists();
+                            deleteFromFriends();
                             dataRef.child("users").child(fUser.getUid()).removeValue();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }
                     }
                 });
+            }
+        });
+    }
+
+    private void deleteFromFriends(){
+        dataRef.child("users").child(fUser.getUid()).child("friends").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snapshot1: snapshot.getChildren()){
+                    String friendID = snapshot1.getKey().toString();
+                    dataRef.child("users").child(friendID).child("friends").child(fUser.getUid()).removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void deleteFromNestLists(){
+        dataRef.child("users").child(fUser.getUid()).child("nestLists").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot1: snapshot.getChildren()){
+                    String listID = snapshot1.getKey();
+                    dataRef.child("nestLists").child(listID).child("memberIDs").child(fUser.getUid()).removeValue();
+                    dataRef.child("nestLists").child(listID).child("memberIDs").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(!snapshot.exists()){
+                                dataRef.child("nestLists").child(listID).removeValue();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
