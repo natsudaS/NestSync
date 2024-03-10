@@ -5,6 +5,7 @@ Ria Sommerfeld
 
 ## Introduction
 NestSync soll eine AndroidApp werden, um Einkaufslisten zu erstellen und diese mit anderen Nutzer der App zu teilen.
+Aktuelles Ablaufdiagramm ist im Repo hinterlegt.
 
 ## Planned Features
 - [x] Anlegen eines Nutzeraccounts + einloggen in die App mit Email und Passwort
